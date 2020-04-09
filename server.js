@@ -3,15 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
 
-
-app.use(function(req, res, next) {
-  if ((req.get('X-Forwarded-Proto') !== 'https')) {
-    res.redirect('https://' + req.get('Host') + req.url);
-  } else
-  
-    express.static(path.join(__dirname, 'build'));
-    next();
-});
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/ping', function (req, res) {
  return res.send('pong');
