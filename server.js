@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 
 app.use (function (req, res, next) {
+  express.static(path.join(__dirname, 'build'))
   if (req.secure) {
     // request was via https, so do no special handling
     next();
@@ -12,8 +13,6 @@ app.use (function (req, res, next) {
     res.redirect('https://' + req.headers.host + req.url);
   }
 });
-
-app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/ping', function (req, res) {
  return res.send('pong');
