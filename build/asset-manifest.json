@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/dennischen0/acnh-turnip-price-trackerstatic/css/main.5f361e03.chunk.css",
-    "main.js": "/dennischen0/acnh-turnip-price-trackerstatic/js/main.0b7cad47.chunk.js",
-    "main.js.map": "/dennischen0/acnh-turnip-price-trackerstatic/js/main.0b7cad47.chunk.js.map",
-    "runtime-main.js": "/dennischen0/acnh-turnip-price-trackerstatic/js/runtime-main.bdd14f3d.js",
-    "runtime-main.js.map": "/dennischen0/acnh-turnip-price-trackerstatic/js/runtime-main.bdd14f3d.js.map",
-    "static/js/2.a14e3aed.chunk.js": "/dennischen0/acnh-turnip-price-trackerstatic/js/2.a14e3aed.chunk.js",
-    "static/js/2.a14e3aed.chunk.js.map": "/dennischen0/acnh-turnip-price-trackerstatic/js/2.a14e3aed.chunk.js.map",
-    "index.html": "/dennischen0/acnh-turnip-price-trackerindex.html",
-    "precache-manifest.8d4c6ef3cefab9608d0f6cf29e532572.js": "/dennischen0/acnh-turnip-price-trackerprecache-manifest.8d4c6ef3cefab9608d0f6cf29e532572.js",
-    "service-worker.js": "/dennischen0/acnh-turnip-price-trackerservice-worker.js",
-    "static/css/main.5f361e03.chunk.css.map": "/dennischen0/acnh-turnip-price-trackerstatic/css/main.5f361e03.chunk.css.map",
-    "static/js/2.a14e3aed.chunk.js.LICENSE.txt": "/dennischen0/acnh-turnip-price-trackerstatic/js/2.a14e3aed.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/dennischen0/acnh-turnip-price-trackerstatic/media/logo.5d5d9eef.svg"
+    "main.css": "/static/css/main.5f361e03.chunk.css",
+    "main.js": "/static/js/main.075248dc.chunk.js",
+    "main.js.map": "/static/js/main.075248dc.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.bd41780d.js",
+    "runtime-main.js.map": "/static/js/runtime-main.bd41780d.js.map",
+    "static/js/2.e855eda9.chunk.js": "/static/js/2.e855eda9.chunk.js",
+    "static/js/2.e855eda9.chunk.js.map": "/static/js/2.e855eda9.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.fab3e7adad1ae21ab9e1096d864e48e4.js": "/precache-manifest.fab3e7adad1ae21ab9e1096d864e48e4.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.e855eda9.chunk.js.LICENSE.txt": "/static/js/2.e855eda9.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.bdd14f3d.js",
-    "static/js/2.a14e3aed.chunk.js",
+    "static/js/runtime-main.bd41780d.js",
+    "static/js/2.e855eda9.chunk.js",
     "static/css/main.5f361e03.chunk.css",
-    "static/js/main.0b7cad47.chunk.js"
+    "static/js/main.075248dc.chunk.js"
   ]
 }
