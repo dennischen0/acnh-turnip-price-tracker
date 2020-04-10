@@ -1,3 +1,6 @@
+# acnh-turnip-price-tracker
+Price tracking website for Animal Crossing: New Horizons
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
