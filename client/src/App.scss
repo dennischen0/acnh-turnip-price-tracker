@@ -1,4 +1,18 @@
+@font-face {
+  font-family: 'FinkHeavy';
+  font-style: normal;
+  font-weight: normal;
+  src: url('./fonts/FinkHeavyRegular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/FinkHeavyRegular.woff') format('woff'), /* Modern Browsers */
+}
+
+body {
+  
+  background-image: url('./assets/956578.jpg');
+}
+
 .App {
+  font-family: 'FinkHeavy';
   text-align: center;
 }
 
