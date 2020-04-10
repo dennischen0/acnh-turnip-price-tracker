@@ -1,5 +1,6 @@
 // lib/app.ts
 import express = require('express');
+import "reflect-metadata";
 const bodyParser = require('body-parser')
 const path = require('path');
 const app: express.Application = express();

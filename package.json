@@ -8,14 +8,18 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/express": "^4.17.6",
+    "@types/node": "^13.11.1",
     "bootstrap": "^4.4.1",
     "dotenv": "^8.2.0",
+    "mysql": "^2.18.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-https-redirect": "^1.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.24",
     "typescript": "^3.8.3"
   },
   "scripts": {
