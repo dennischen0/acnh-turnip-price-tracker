@@ -6,6 +6,10 @@ import { Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./components/Profile";
 import history from "./utils/history";
+import { useAuth0 } from "./react-auth0-spa";
+import Loading from "./components/Loading";
+
+import "./App.css";
 
 function App() {
   const { loading } = useAuth0();
