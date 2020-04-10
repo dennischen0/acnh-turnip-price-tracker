@@ -10,7 +10,6 @@ const path = require('path');
 const app: express.Application = express();
 require('dotenv').config();
 
-
 createConnection().then(async connection => {
 
   console.log("Inserting a new user into the database...");
