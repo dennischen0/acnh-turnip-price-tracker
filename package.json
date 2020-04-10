@@ -19,7 +19,7 @@
       "tsc": "tsc",
       "dev": "cd client && react-scripts start",
       "start": "ts-node server/server.ts",
-      "build": "cd client && react-scripts build"
+      "build": "cd client && npm i && react-scripts build"
    },
    "proxy": "http://localhost:8080",
    "devDependencies": {
