@@ -24,14 +24,15 @@ const NavBar = () => {
           )}
           {isAuthenticated && (
             <>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink
                   to="/profile"
                   activeClassName="router-link-exact-active"
                 >
                   Profile
                 </NavLink>
-              </NavItem>
+              </NavItem> */}
+              <Nav.Link href="/profile">Profile</Nav.Link>
               <Button variant="outline-success" onClick={() => logout()}>Log out</Button>
 
             </>
