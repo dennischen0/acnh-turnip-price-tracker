@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
   }
 });
 
-app.use(express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.get('/ping', async function (req, res) {
   return "pong";
@@ -47,7 +47,7 @@ app.use('/api/users', usersRouter);
 
 // Leave this at the end of the file
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(process.env.PORT || 8080);
