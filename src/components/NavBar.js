@@ -2,9 +2,9 @@
 
 import React from "react";
 import { useAuth0 } from "../react-auth0-spa";
-import { Link } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 
-import {Navbar, Nav, Button} from 'react-bootstrap'
+import {Navbar, Nav, NavItem, Button} from 'react-bootstrap'
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -24,7 +24,14 @@ const NavBar = () => {
           )}
           {isAuthenticated && (
             <>
-            <Nav.Link href="/profile">Profile</Nav.Link>
+              <NavItem>
+                <NavLink
+                  to="/profile"
+                  activeClassName="router-link-exact-active"
+                >
+                  Profile
+                </NavLink>
+              </NavItem>
               <Button variant="outline-success" onClick={() => logout()}>Log out</Button>
 
             </>
