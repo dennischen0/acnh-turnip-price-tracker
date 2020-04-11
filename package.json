@@ -1,0 +1,26 @@
+{
+  "name": "acnh-turnip-price-tracker",
+  "version": "1.0.0",
+  "description": "Price tracking website for Animal Crossing: New Horizons",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dennischen0/acnh-turnip-price-tracker.git"
+  },
+  "author": "Dennis Chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dennischen0/acnh-turnip-price-tracker/issues"
+  },
+  "homepage": "https://github.com/dennischen0/acnh-turnip-price-tracker#readme",
+  "dependencies": {
+    "db-migrate": "^0.11.6",
+    "db-migrate-mysql": "^2.1.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mysql": "^2.18.1"
+  }
+}
