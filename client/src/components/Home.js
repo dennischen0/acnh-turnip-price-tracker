@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import Week from "../components/Week";
 import Chart from "../components/Chart";
 
-
 const Home = () => {
 
   var prices = new Array(13)
@@ -14,7 +13,9 @@ const Home = () => {
   prices[5] =133
   prices[6] =188
   return (
-    <Chart filter={prices} />
+    <>
+      <Chart filter={prices} />
+    </>
   );
 };
 
