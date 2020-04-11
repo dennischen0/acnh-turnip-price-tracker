@@ -6,24 +6,19 @@ import merge from "lodash.merge";
 import { Box } from "@material-ui/core";
 import { useDebounce } from "react-use";
 import { useTranslation } from "react-i18next";
-import {
-  possiblePatterns,
-  patternReducer,
-  averageReducer,
-  minWeekReducer,
-} from "../utils/patterns.js";
+import * as Patterns from "../utils/patterns.js";
 
-Chart.defaults.global.defaultFontFamily = "Arial Rounded MT Bold";
+Chart.defaults.global.defaultFontFamily = "FinkHeavy";
 
 const createGenerteData = (t) => (filter) => {
-  let patterns = possiblePatterns(filter);
+  let patterns = Patterns.possiblePatterns(filter);
   const patternCount = patterns.reduce((acc, cur) => acc + cur.length, 0);
-  if (patternCount === 0) patterns = possiblePatterns([0, ...filter.slice(1)]);
-  const minMaxPattern = patternReducer(patterns);
+  if (patternCount === 0) patterns = Patterns.possiblePatterns([0, ...filter.slice(1)]);
+  const minMaxPattern = Patterns.patternReducer(patterns);
   const minMaxData = zip(...minMaxPattern);
-  const avgPattern = patternReducer(patterns, averageReducer);
+  const avgPattern = Patterns.patternReducer(patterns, Patterns.averageReducer);
   const avgData = zip(...avgPattern);
-  const [minWeekValue] = patternReducer(patterns, minWeekReducer);
+  const [minWeekValue] = Patterns.patternReducer(patterns, Patterns.minWeekReducer);
 
   return [
     {
