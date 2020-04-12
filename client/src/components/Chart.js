@@ -164,7 +164,8 @@ const ChartComponent = ({ filter }) => {
 
   return (
     <Box p={2} mt={2} borderRadius={16} bgcolor="bkgs.chart">
-      <canvas ref={canvas} width={600} height={400} />
+
+<canvas ref={canvas} width={600} height={400} />
     </Box>
   );
 };

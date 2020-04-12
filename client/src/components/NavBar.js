@@ -2,9 +2,8 @@
 
 import React from "react";
 import { useAuth0 } from "../react-auth0-spa";
-import { Link,NavLink } from "react-router-dom";
 
-import {Navbar, Nav, NavItem, Button} from 'react-bootstrap'
+import {Navbar, Nav, Button} from 'react-bootstrap'
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -33,21 +32,6 @@ const NavBar = () => {
 
       </Navbar>
     </div>
-
-
-    // <div>
-
-
-    //   
-
-          
-    //   {isAuthenticated && (
-    //     <span>
-    //       <Link to="/">Home</Link>&nbsp;
-    //       <Link to="/profile">Profile</Link>
-    //     </span>
-    //   )}
-    // </div>
   );
 };
 
