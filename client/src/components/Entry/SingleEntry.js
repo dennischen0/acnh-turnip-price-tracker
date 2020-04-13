@@ -13,7 +13,7 @@ class SingleEntry extends React.Component {
     const re = /^[0-9\b]+$/;
     if (e.target.value === '' || re.test(e.target.value)) {
        this.setState({value: e.target.value})
-       this.props.onChange(e.target.value)
+       this.props.onChange(parseInt(e.target.value))
     }
  }
 
@@ -21,7 +21,7 @@ class SingleEntry extends React.Component {
     return (
         <Form.Group className={'entry'} as={Col}>
           <Form.Label>
-            {this.props.timeOfDay}
+            {this.props.label}
           </Form.Label>
           <Form.Control 
             value={this.state.value}

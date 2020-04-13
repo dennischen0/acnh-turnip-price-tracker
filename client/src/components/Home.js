@@ -10,24 +10,25 @@ class Home extends React.Component {
     }
   }
 
-  updatePrices(data) {
+  updatePrices(buyPrice, prices) {
     let result = []
-    Array.from(Object.keys(data)).map((day) => {
-      result = result.concat(data[day]["AM"] ? data[day]["AM"] : 0)
-      result = result.concat(data[day]["PM"] ? data[day]["PM"] : 0)
+    result = result.concat(buyPrice)
+    Array.from(Object.keys(prices)).map((day) => {
+      result = result.concat(prices[day]["AM"] ? prices[day]["AM"] : 0)
+      result = result.concat(prices[day]["PM"] ? prices[day]["PM"] : 0)
       return result;
     })
 
     console.log(result)
     this.setState({
-      prices: [89].concat(result),
+      prices: result,
     })
   }
 
   render() {
     return (
       <>
-        <WeeklyEntry onChange={(data) => this.updatePrices(data)} />
+        <WeeklyEntry onChange={(buyPrice, prices) => this.updatePrices(buyPrice, prices)} />
         <Chart filter={this.state.prices} />
       </>
     );

@@ -1,31 +1,41 @@
 import React from "react";
 
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
 import DailyEntry from "./DailyEntry";
+import SingleEntry from "./SingleEntry";
 
 
 class WeeklyEntry extends React.Component {
   constructor(props) {
     super(props);
     this.priceMap = {};
+    this.buyPrice = 0;
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    days.forEach(day => this.priceMap[day] = {'AM':'', 'PM':''})
+    days.forEach(day => this.priceMap[day] = {'AM':0, 'PM':0})
 
   }
 
   handleChange(result, day) {
     this.priceMap[day] = result;
     console.log(this.priceMap)
-    this.props.onChange(this.priceMap)
+    this.props.onChange(this.buyPrice, this.priceMap)
+  }
 
+  changeBuyPrice(result) {
+    this.buyPrice = result;
+    this.props.onChange(this.buyPrice, this.priceMap)
   }
 
   render() {
     return (
-      <Container className={'weekly-entry'}>
+      <Container className={'weekly-entry'} sm={10}>
         <h3 className={'title'}>
           Turnip Prices
         </h3>
+        <SingleEntry
+          label={'Buy Price'}
+          onChange={(result)=> this.changeBuyPrice(result)}
+        />
         <Row>
           {Array.from(Object.keys(this.priceMap)).map((day) => {
             return (

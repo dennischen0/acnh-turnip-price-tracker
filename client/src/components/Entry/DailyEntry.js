@@ -29,7 +29,7 @@ class DailyEntry extends React.Component {
             return (
               <Col key={timeOfDay}>
                 <SingleEntry
-                  timeOfDay={timeOfDay}
+                  label={timeOfDay}
                   onChange={(result)=> this.handleChange(result, timeOfDay)}
                 />
               </Col>
