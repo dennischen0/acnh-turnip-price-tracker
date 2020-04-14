@@ -1,6 +1,7 @@
 import React from "react";
 import Chart from "../components/Chart";
 import WeeklyEntry from "./Entry/WeeklyEntry";
+import { Container } from 'react-bootstrap'
 
 class Home extends React.Component {
   constructor(props) {
@@ -27,10 +28,10 @@ class Home extends React.Component {
 
   render() {
     return (
-      <>
+      <Container>
         <WeeklyEntry onChange={(buyPrice, prices) => this.updatePrices(buyPrice, prices)} />
-        <Chart filter={this.state.prices} />
-      </>
+        <Chart filter={this.state.prices}/>
+      </Container>
     );
   }
 }
