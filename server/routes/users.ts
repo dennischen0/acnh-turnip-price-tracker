@@ -6,7 +6,7 @@ import {User} from "../entity/User";
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
   const user = await getRepository(User).find();
-  res.send(user[0].firstName);
+  res.send(user.length);
 });
 
 module.exports = router;

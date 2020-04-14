@@ -28,7 +28,7 @@ class WeeklyEntry extends React.Component {
 
   render() {
     return (
-      <Container className={'weekly-entry'} sm={10}>
+      <Container className={'weekly-entry'}>
         <h3 className={'title'}>
           Turnip Prices
         </h3>
