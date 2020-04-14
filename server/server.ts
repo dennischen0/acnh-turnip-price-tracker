@@ -2,31 +2,20 @@
 import express = require('express');
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import {User} from "./entity/User";
-
+const cors = require("cors");
 const usersRouter = require('./routes/users');
-
+const weeklyEntriesRouter = require('./routes/weeklyEntries');
 const path = require('path');
 const app: express.Application = express();
 require('dotenv').config();
 
+const port = process.env.API_PORT || 8080;
+const appPort = process.env.NODE_ENV === 'production' ? port : 3000;
 createConnection().then(async connection => {
-
-  console.log("Inserting a new user into the database...");
-  const user = new User();
-  user.firstName = "Timber";
-  user.lastName = "Saw";
-  user.age = 25;
-  await connection.manager.save(user);
-  console.log("Saved a new user with id: " + user.id);
-
-  console.log("Loading users from the database...");
-  const users = await connection.manager.find(User);
-  console.log("Loaded users: ", users);
-
   console.log("Here you can setup and run express/koa/any other framework.");
-
 }).catch(error => console.log(error));
+
+app.use(cors({origin: `http://localhost:${appPort}`}));
 
 app.use(function(req, res, next) {
   if (process.env.NODE_ENV === 'production' && (req.get('X-Forwarded-Proto') !== 'https')) {
@@ -37,19 +26,15 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static(path.join(__dirname, '../client/build')));
-
-app.get('/ping', async function (req, res) {
-  return "pong";
-});
-
 app.use('/api/users', usersRouter);
+app.use('/api/weeklyEntries', weeklyEntriesRouter);
 
 // Leave this at the end of the file
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(process.env.PORT || 8080);
+app.listen(port, () => console.log(`API Server listening on port ${port}`));
 
 
 

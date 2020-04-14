@@ -13,6 +13,7 @@ import history from "./utils/history";
 import { useAuth0 } from "./react-auth0-spa";
 import Loading from "./components/Loading";
 import PrivateRoute from "./components/PrivateRoute";
+import ExternalApi from "./views/ExternalApi";
 
 import "./App.scss";
 
@@ -32,6 +33,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
+          <Route path="/external-api" component={ExternalApi} />
         </Switch>
       </Router>
     </div>

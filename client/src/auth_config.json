@@ -1,4 +1,5 @@
 {
     "domain": "dev-55i5fhx4.auth0.com",
-    "clientId": "fFFxvnwVUgaaj8XuD75J6uffCXjcUmt6"
+    "clientId": "fFFxvnwVUgaaj8XuD75J6uffCXjcUmt6",
+    "audience": "https://acnh-turnip-price-tracker.herokuapp.com"
 }
