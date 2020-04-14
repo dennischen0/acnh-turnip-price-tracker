@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useAuth0 } from "../react-auth0-spa";
+var constants = require('../utils/constants');
 
 const ExternalApi = () => {
   const [showResult, setShowResult] = useState(false);
@@ -12,7 +13,7 @@ const ExternalApi = () => {
     try {
       const token = await getTokenSilently();
 
-      const response = await fetch("http://localhost:8080/api/users", {
+      const response = await fetch(`${constants.API_SERVER}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
