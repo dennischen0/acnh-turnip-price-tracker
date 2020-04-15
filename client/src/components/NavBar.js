@@ -8,6 +8,11 @@ import {Navbar, Nav, Button} from 'react-bootstrap'
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
+  const logoutWithRedirect = () =>
+    logout({
+      returnTo: window.location.origin
+    });
+
   return (
 
     <div>
@@ -25,7 +30,7 @@ const NavBar = () => {
             <>
               <Nav.Link href="/profile">Profile</Nav.Link>
               <Nav.Link href="/external-api">External API</Nav.Link>
-              <Button variant="outline-success" onClick={() => logout()}>Log out</Button>
+              <Button variant="outline-success" onClick={() => logoutWithRedirect()}>Log out</Button>
 
             </>
           )}

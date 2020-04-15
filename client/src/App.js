@@ -5,15 +5,15 @@ import NavBar from "./components/NavBar";
 import { Router, Route, Switch } from "react-router-dom";
 
 // pages
-import Home from "./components/Home";
-import Profile from "./components/Profile";
+import Home from "./views/Home";
+import Profile from "./views/Profile";
+import ExternalApi from "./views/ExternalApi";
 
 // auth
 import history from "./utils/history";
 import { useAuth0 } from "./react-auth0-spa";
 import Loading from "./components/Loading";
 import PrivateRoute from "./components/PrivateRoute";
-import ExternalApi from "./views/ExternalApi";
 
 import "./App.scss";
 
