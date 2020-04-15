@@ -24,7 +24,29 @@ class Home extends React.Component {
     this.setState({
       prices: result,
     })
+
+    // callEntryPost()
   }
+
+  // callEntryPost() {
+  //   try {
+  //     const token = await getTokenSilently();
+
+  //     const response = await fetch(`${constants.API_SERVER}/api/users`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //     });
+  //     console.log(token)
+
+  //     const responseData = await response.json();
+
+  //     setShowResult(true);
+  //     setApiMessage(responseData);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   render() {
     return (

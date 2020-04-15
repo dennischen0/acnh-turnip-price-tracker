@@ -11,11 +11,32 @@ const ExternalApi = () => {
 
   const callApi = async () => {
     try {
+      const data = {
+        buyPrice: 93,
+        monday: {
+          AM: 85,
+          PM: 81
+        },
+        tuesday: {
+          AM: 76,
+          PM: 72
+        },
+        wednesday: {
+          AM: 133,
+          PM: 188
+        },
+        thursday: {
+          AM: 322
+        }
+      }
       const token = await getTokenSilently();
 
-      const response = await fetch(`${constants.API_SERVER}/api/users`, {
+      const response = await fetch(`${constants.API_SERVER}/api/entries`, {
+        method: 'POST',
+        body: JSON.stringify(data),
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
 

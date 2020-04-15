@@ -2,7 +2,7 @@ const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 
 const authConfig = {
-  domain: "dev-55i5fhx4.auth0.com",
+  domain: "dennischen.auth0.com",
   audience: "https://acnh-turnip-price-tracker.herokuapp.com"
 };
 

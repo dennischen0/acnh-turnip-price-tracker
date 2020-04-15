@@ -3,10 +3,10 @@ import express = require('express');
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 const cors = require("cors");
-const usersRouter = require('./routes/users');
-const weeklyEntriesRouter = require('./routes/weeklyEntries');
+const entriesRouter = require('./routes/entries');
 const path = require('path');
 const app: express.Application = express();
+const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 8080;
@@ -26,8 +26,8 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static(path.join(__dirname, '../client/build')));
-app.use('/api/users', usersRouter);
-app.use('/api/weeklyEntries', weeklyEntriesRouter);
+app.use(bodyParser.json());
+app.use('/api/entries', entriesRouter);
 
 // Leave this at the end of the file
 app.get('*', function (req, res) {
