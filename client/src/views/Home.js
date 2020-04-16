@@ -1,6 +1,6 @@
 import React from "react";
 import Chart from "../components/Chart";
-import WeeklyEntry from "./Entry/WeeklyEntry";
+import WeeklyEntry from "../components/Entry/WeeklyEntry";
 import { Container } from 'react-bootstrap'
 
 class Home extends React.Component {
