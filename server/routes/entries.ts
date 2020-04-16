@@ -15,18 +15,18 @@ router.post('/', checkJwt, async function(req, res, next) {
   }
   entry.userID = req.user.sub;
   entry.buyPrice = getValue('buyPrice', req.body);
-  entry.monAM = getValueFromDay('monday', 'AM', req.body);
-  entry.monPM = getValueFromDay('monday', 'PM', req.body);
-  entry.tueAM = getValueFromDay('tuesday', 'AM', req.body);
-  entry.tuePM = getValueFromDay('tuesday', 'PM', req.body);
-  entry.wedAM = getValueFromDay('wednesday', 'AM', req.body);
-  entry.wedPM = getValueFromDay('wednesday', 'PM', req.body);
-  entry.thuAM = getValueFromDay('thursday', 'AM', req.body);
-  entry.thuPM = getValueFromDay('thursday', 'PM', req.body);
-  entry.friAM = getValueFromDay('friday', 'AM', req.body);
-  entry.friPM = getValueFromDay('friday', 'PM', req.body);
-  entry.satAM = getValueFromDay('saturday', 'AM', req.body);
-  entry.satPM = getValueFromDay('saturday', 'PM', req.body);
+  entry.monAM = getValueFromDay('Monday', 'AM', req.body);
+  entry.monPM = getValueFromDay('Monday', 'PM', req.body);
+  entry.tueAM = getValueFromDay('Tuesday', 'AM', req.body);
+  entry.tuePM = getValueFromDay('Tuesday', 'PM', req.body);
+  entry.wedAM = getValueFromDay('Wednesday', 'AM', req.body);
+  entry.wedPM = getValueFromDay('Wednesday', 'PM', req.body);
+  entry.thuAM = getValueFromDay('Thursday', 'AM', req.body);
+  entry.thuPM = getValueFromDay('Thursday', 'PM', req.body);
+  entry.friAM = getValueFromDay('Friday', 'AM', req.body);
+  entry.friPM = getValueFromDay('Friday', 'PM', req.body);
+  entry.satAM = getValueFromDay('Saturday', 'AM', req.body);
+  entry.satPM = getValueFromDay('Saturday', 'PM', req.body);
   await getConnection().manager.save(entry);
 
 

@@ -1,17 +1,59 @@
-import React from "react";
+import React, {useState} from "react";
 import Chart from "../components/Chart";
 import WeeklyEntry from "../components/Entry/WeeklyEntry";
 import { Container } from 'react-bootstrap'
+import { useAuth0 } from "../react-auth0-spa";
+var constants = require('../utils/constants');
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prices: [],
+const Home = () => {
+  const { getTokenSilently } = useAuth0();
+  const [prices, setPrices] = useState("");
+
+  const saveIntoDB = async (buyPrice, prices) => {
+    try {
+      const data = Object.assign({buyPrice: buyPrice}, prices);
+      const token = await getTokenSilently();
+      console.log(data)
+
+      const response = await fetch(`${constants.API_SERVER}/api/entries`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const responseData = await response.json();
+
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
 
-  updatePrices(buyPrice, prices) {
+  const fetchFromDB = async (buyPrice, prices) => {
+    try {
+      const data = Object.assign({buyPrice: buyPrice}, prices);
+      const token = await getTokenSilently();
+      console.log(data)
+
+      const response = await fetch(`${constants.API_SERVER}/api/entries`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const responseData = await response.json();
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updatePrices = (buyPrice, prices) => {
     let result = []
     result = result.concat(buyPrice)
     Array.from(Object.keys(prices)).map((day) => {
@@ -20,42 +62,16 @@ class Home extends React.Component {
       return result;
     })
 
-    console.log(result)
-    this.setState({
-      prices: result,
-    })
-
-    // callEntryPost()
+    setPrices(prices)
+    
+    saveIntoDB(buyPrice, prices);
   }
 
-  // callEntryPost() {
-  //   try {
-  //     const token = await getTokenSilently();
-
-  //     const response = await fetch(`${constants.API_SERVER}/api/users`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     });
-  //     console.log(token)
-
-  //     const responseData = await response.json();
-
-  //     setShowResult(true);
-  //     setApiMessage(responseData);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  render() {
-    return (
-      <Container>
-        <WeeklyEntry onChange={(buyPrice, prices) => this.updatePrices(buyPrice, prices)} />
-        <Chart filter={this.state.prices}/>
-      </Container>
-    );
-  }
-}
-
+  return (
+    <Container>
+      <WeeklyEntry onChange={(buyPrice, prices) => updatePrices(buyPrice, prices)} />
+      <Chart filter={prices}/>
+    </Container>
+  );
+};
 export default Home;
