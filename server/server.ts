@@ -11,11 +11,13 @@ require('dotenv').config();
 
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 8080;
 const appPort = process.env.NODE_ENV === 'production' ? port : 3000;
+
 createConnection().then(async connection => {
   console.log("Here you can setup and run express/koa/any other framework.");
 }).catch(error => console.log(error));
 
 app.use(cors({origin: `http://localhost:${appPort}`}));
+
 
 app.use(function(req, res, next) {
   if (process.env.NODE_ENV === 'production' && (req.get('X-Forwarded-Proto') !== 'https')) {
@@ -34,7 +36,7 @@ app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(port, () => console.log(`API Server listening on port ${port}`));
+app.listen(port, () => console.log(`Server listening on port ${port}`));
 
 
 
