@@ -10,6 +10,9 @@ const Home = () => {
   const [prices, setPrices] = useState("");
 
   const saveIntoDB = async (buyPrice, prices) => {
+    const apiPort = process.env.NODE_ENV === 'production' ? process.env.PORT : 8080;
+
+    console.log(`API PORT= ${process.env.NODE_ENV}${apiPort}`)
     try {
       const data = Object.assign({buyPrice: buyPrice}, prices);
       const token = await getTokenSilently();
