@@ -25,8 +25,22 @@
       "tsc": "tsc",
       "client": "cd client && npm start",
       "start": "ts-node server/server.ts",
+      "start:watch": "nodemon",
       "build": "cd client && npm i && npm run build",
-      "dev": "npm-run-all --parallel client start"
+      "dev": "npm-run-all --parallel client start:watch"
    },
-   "proxy": "http://localhost:8080"
+   "proxy": "http://localhost:8080",
+   "nodemonConfig": {
+      "ignore": [
+         "**/*.test.ts",
+         "**/*.spec.ts",
+         ".git",
+         "node_modules"
+      ],
+      "watch": [
+         "server"
+      ],
+      "exec": "npm start",
+      "ext": "ts"
+   }
 }
