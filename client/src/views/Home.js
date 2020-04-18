@@ -13,7 +13,7 @@ const Home = () => {
     try {
       const data = Object.assign({buyPrice: buyPrice}, prices);
       const token = await getTokenSilently();
-      console.log(data)
+      console.log(`${constants.API_SERVER}/api/entries`)
 
       const response = await fetch(`${constants.API_SERVER}/api/entries`, {
         method: 'POST',
