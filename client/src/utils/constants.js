@@ -1,3 +1,3 @@
 module.exports = Object.freeze({
-  API_SERVER: `https://localhost`
+  API_SERVER: `http://localhost:8080`
 });
