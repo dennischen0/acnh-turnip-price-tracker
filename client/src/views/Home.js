@@ -15,7 +15,7 @@ const Home = () => {
       const token = await getTokenSilently();
       console.log(data)
 
-      const response = await fetch(`/api/entries`, {
+      const response = await fetch(`${constants.API_SERVER}/api/entries`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
