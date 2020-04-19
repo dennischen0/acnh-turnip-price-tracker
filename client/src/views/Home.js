@@ -17,6 +17,7 @@ const Home = () => {
 
   //need to fix problem with quickly entering data.
   const saveIntoDB = async (weeklyEntry) => {
+    console.log("Attempting to save data");
     if (!isAuthenticated || !fetchComplete) return;
     try {
       const token = await getTokenSilently();
@@ -36,6 +37,7 @@ const Home = () => {
   };
 
   const fetchFromDB = async () => {
+    console.log("Attempting to retrieve data");
     if (!isAuthenticated) return;
     try {
       const token = await getTokenSilently();
