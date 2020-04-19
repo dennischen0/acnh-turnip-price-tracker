@@ -15,7 +15,7 @@ const finkHeavy = {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: #7FD1A5,
+      main: "#7FD1A5",
       dark: "#007D75",
       light: "#88C9A1",
     },

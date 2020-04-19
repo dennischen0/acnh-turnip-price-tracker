@@ -6,7 +6,6 @@ const checkJwt = require('../utils/auth0_middleware')
 
 /* GET users listing. */
 router.post('/', checkJwt, async function(req, res, next) {
-  console.log(req.body)
   let entry = await Entry.findOne({ userID: req.user.sub });
   if(!entry) {
     entry = new Entry();
@@ -27,7 +26,6 @@ router.post('/', checkJwt, async function(req, res, next) {
   entry.satPM = getValueFromDay('friday', 'PM', req.body);
 
   await entry.save();
-  console.log(entry)
 
   res.status(200).json('success');
 });
@@ -65,7 +63,6 @@ router.get('/', checkJwt, async function(req, res, next) {
       PM: entry.satPM
     },
   };
-  console.log('fetched');
 
   res.status(200).json(data);
 });

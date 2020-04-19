@@ -1,24 +1,29 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 import { Row, Col, Container } from 'react-bootstrap'
 import SingleEntry from "./SingleEntry";
-import DailyEntryModel from "../../model/dailyEntryModel"
 
 const DailyEntry = ({day, onChange}) => {
   const times = ['AM', 'PM'];
-  const dailyEntry = useRef(new DailyEntryModel());
+  const dailyEntry = useRef({AM:0, PM:0});
 
   const handleChange = (result, time) => {
     switch (time) {
       case 'AM':
-        dailyEntry.current.setAM(result);
+        dailyEntry.current.AM = result;
         break;
       case 'PM':
-        dailyEntry.current.setPM(result);
+        dailyEntry.current.PM = result;
+        break;
+      default:
         break;
     }
-    onChange(dailyEntry);
+    onChange(dailyEntry.current);
   }
+
+  useEffect(() => {
+    onChange(dailyEntry.current);
+  }, [dailyEntry]);
   
   return (
     <Container className={'daily-entry'}>

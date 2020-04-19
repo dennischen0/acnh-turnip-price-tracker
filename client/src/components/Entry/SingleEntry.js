@@ -8,6 +8,9 @@ const SingleEntry = ({label, onChange}) => {
 
   const handleChange = (e) => {
     const re = /^[0-9\b]+$/;
+    if (e.target.value.toString().length > 4) {
+      return;
+    }
     if (e.target.value === '' || re.test(e.target.value)) {
       setValue(e.target.value);
       onChange(parseInt(e.target.value))
@@ -20,6 +23,7 @@ const SingleEntry = ({label, onChange}) => {
         {label}
       </Form.Label>
       <Form.Control 
+        type="number"
         value={value}
         onChange={(e) => handleChange(e)}
       />
