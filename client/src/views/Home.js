@@ -29,6 +29,7 @@ const Home = () => {
           'Content-Type': 'application/json'
         }
       });
+      console.log("Data posted");
     } catch (error) {
       console.error(error);
     }
@@ -51,6 +52,7 @@ const Home = () => {
 
       setPrices(responseData);
       updateFetchComplete(true);
+      console.log("Data retreived");
 
     } catch (error) {
       console.error(error);
