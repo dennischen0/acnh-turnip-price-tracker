@@ -8,7 +8,6 @@ import SingleEntry from "./SingleEntry";
 const WeeklyEntry = ({initPrices, onChange}) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const [weeklyPrices, setWeeklyPrices] = useState({});
-  const weeklyEntryArray = useRef([]);
 
   useEffect(() => {
     if(initPrices) {
@@ -20,30 +19,13 @@ const WeeklyEntry = ({initPrices, onChange}) => {
     day = day.toLowerCase();
     weeklyPrices[day] = result
     setWeeklyPrices(weeklyPrices);
-    getArray();
-
-    onChange(weeklyPrices, weeklyEntryArray.current);
-  }
-
-  const getArray = () => {
-    var result = ['buyPrice' in weeklyPrices ? weeklyPrices.buyPrice : 0 ];
-    days.map((day) => {
-      day = day.toLowerCase();
-      if(!(day in weeklyPrices)) {
-        return result;
-      }
-      result = result.concat(weeklyPrices[day].AM);
-      result = result.concat(weeklyPrices[day].PM);
-      return result;
-    })
-    weeklyEntryArray.current = result;
+    onChange(weeklyPrices);
   }
 
   const changeBuyPrice = (result) => {
     weeklyPrices['buyPrice'] = result;
     setWeeklyPrices(weeklyPrices);
-    getArray();
-    onChange(weeklyPrices, weeklyEntryArray.current);
+    onChange(weeklyPrices);
   }
   
   return (

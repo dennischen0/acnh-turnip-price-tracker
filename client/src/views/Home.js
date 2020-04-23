@@ -7,18 +7,13 @@ var constants = require('../utils/constants');
 
 const Home = () => {
   const { isAuthenticated, getTokenSilently } = useAuth0();
-  const [prices, setPrices] = useState("");
-  const [filter, setFilter] = useState("");
+  const [prices, setPrices] = useState({});
+  const [filter, setFilter] = useState([]);
   const [fetchComplete, updateFetchComplete] = useState(false);
 
   useEffect(() => {
     fetchFromDB();
   }, [])
-
-  // useEffect(()=> {
-  //   console.log("price change");
-  //   console.log(prices);
-  // }, [prices])
 
   //need to fix problem with quickly entering data.
   const saveIntoDB = async (weeklyEntry) => {
@@ -56,16 +51,30 @@ const Home = () => {
 
       const responseData = await response.json();
       setPrices(responseData);
+      setFilter(getArray(responseData));
       updateFetchComplete(true);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const updatePrices = (weeklyEntry, weeklyEntryArray) => {
-    let graphData = []
-    graphData = graphData.concat(weeklyEntry.buyPrice);
-    setFilter(weeklyEntryArray);
+  const getArray = (weeklyPrices) => {
+    var result = ['buyPrice' in weeklyPrices ? weeklyPrices.buyPrice : 0 ];
+    ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day) => {
+      day = day.toLowerCase();
+      if(!(day in weeklyPrices)) {
+        return result;
+      }
+      result = result.concat(weeklyPrices[day].AM);
+      result = result.concat(weeklyPrices[day].PM);
+      return result;
+    })
+    return result;
+  }
+
+  const updatePrices = (weeklyEntry) => {
+    setPrices(weeklyEntry)
+    setFilter(getArray(weeklyEntry));
     saveIntoDB(weeklyEntry);
   }
 
@@ -73,7 +82,7 @@ const Home = () => {
     <Container>
       <WeeklyEntry 
         initPrices={prices}
-        onChange={(weeklyEntry, weeklyEntryArray) => updatePrices(weeklyEntry, weeklyEntryArray)} 
+        onChange={(weeklyEntry) => updatePrices(weeklyEntry)} 
       />
       <Chart filter={filter}/>
     </Container>
