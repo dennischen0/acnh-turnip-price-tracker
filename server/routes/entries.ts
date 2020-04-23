@@ -30,8 +30,13 @@ router.post('/', checkJwt, async function(req, res, next) {
   res.status(200).json('success');
 });
 
-router.get('/', checkJwt, async function(req, res, next) {
-  let user = req.user.sub
+router.get('/:user_id', checkJwt, async function(req, res, next) {
+  console.log('routed correct');
+  let user = req.params.user_id
+  if(req.params.user_id !== req.user.sub && req.user.gty !== 'client-credentials') {
+    res.status(403).json('Forbidden');
+    return;
+  }
   let entry = await Entry.findOne({ userID: user });
   if(!entry) {
     res.status(404).json('Not Found');
@@ -66,7 +71,14 @@ router.get('/', checkJwt, async function(req, res, next) {
     },
   };
 
+  console.log(data)
   res.status(200).json(data);
+})
+
+router.get('/', checkJwt, async function(req, res, next) {
+  const allEntries = await Entry.find();
+  res.status(200).json(allEntries);
+
 });
 
 function getValueFromDay(day, time, data){

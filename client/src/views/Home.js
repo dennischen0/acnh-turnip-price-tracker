@@ -6,6 +6,7 @@ import { useAuth0 } from "../react-auth0-spa";
 var constants = require('../utils/constants');
 
 const Home = () => {
+  const { user } = useAuth0();
   const { isAuthenticated, getTokenSilently } = useAuth0();
   const [prices, setPrices] = useState({});
   const [filter, setFilter] = useState([]);
@@ -40,8 +41,9 @@ const Home = () => {
     if (!isAuthenticated) return;
     try {
       const token = await getTokenSilently();
+      console.log()
 
-      const response = await fetch(`${constants.API_SERVER}/api/entries`, {
+      const response = await fetch(`${constants.API_SERVER}/api/entries/${user.sub}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,

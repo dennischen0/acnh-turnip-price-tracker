@@ -18,7 +18,6 @@ createConnection().then(async connection => {
 
 app.use(cors({origin: `http://localhost:${appPort}`}));
 
-
 app.use(function(req, res, next) {
   if (process.env.NODE_ENV === 'production' && (req.get('X-Forwarded-Proto') !== 'https')) {
     res.redirect('https://' + req.get('Host') + req.url);
