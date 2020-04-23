@@ -15,6 +15,11 @@ const Home = () => {
     fetchFromDB();
   }, [])
 
+  // useEffect(()=> {
+  //   console.log("price change");
+  //   console.log(prices);
+  // }, [prices])
+
   //need to fix problem with quickly entering data.
   const saveIntoDB = async (weeklyEntry) => {
     console.log("Attempting to save data");
@@ -37,7 +42,6 @@ const Home = () => {
   };
 
   const fetchFromDB = async () => {
-    console.log("Attempting to retrieve data");
     if (!isAuthenticated) return;
     try {
       const token = await getTokenSilently();
@@ -51,11 +55,8 @@ const Home = () => {
       });
 
       const responseData = await response.json();
-
       setPrices(responseData);
       updateFetchComplete(true);
-      console.log("Data retreived");
-
     } catch (error) {
       console.error(error);
     }
@@ -71,7 +72,7 @@ const Home = () => {
   return (
     <Container>
       <WeeklyEntry 
-        prices={prices}
+        initPrices={prices}
         onChange={(weeklyEntry, weeklyEntryArray) => updatePrices(weeklyEntry, weeklyEntryArray)} 
       />
       <Chart filter={filter}/>

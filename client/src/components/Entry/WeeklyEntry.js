@@ -1,64 +1,49 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 import { Container, Row, Col } from 'react-bootstrap'
 import DailyEntry from "./DailyEntry";
 import SingleEntry from "./SingleEntry";
 
 
-const WeeklyEntry = ({prices, onChange}) => {
+const WeeklyEntry = ({initPrices, onChange}) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const weeklyEntry = useRef({});
+  const [weeklyPrices, setWeeklyPrices] = useState({});
   const weeklyEntryArray = useRef([]);
 
   useEffect(() => {
-    weeklyEntry.current.buyPrice = prices.buyPrice
-  }, [])
+    if(initPrices) {
+      setWeeklyPrices(initPrices);
+    }
+  }, [initPrices])
 
   const handleChange = (result, day) => {
-    switch(day) {
-      case 'Monday':
-        weeklyEntry.current.monday = result;
-        break;
-      case 'Tuesday':
-        weeklyEntry.current.tuesday = result;
-        break;
-      case 'Wednesday':
-        weeklyEntry.current.wednesday = result;
-        break;
-      case 'Thursday':
-        weeklyEntry.current.thursday = result;
-        break;
-      case 'Friday':
-        weeklyEntry.current.friday = result;
-        break;
-      case 'Saturday':
-        weeklyEntry.current.saturday = result;
-        break;
-      default:
-        break;
-    }
+    day = day.toLowerCase();
+    weeklyPrices[day] = result
+    setWeeklyPrices(weeklyPrices);
     getArray();
-    onChange(weeklyEntry.current, weeklyEntryArray.current);
+
+    onChange(weeklyPrices, weeklyEntryArray.current);
   }
 
   const getArray = () => {
-    var result = ['buyPrice' in weeklyEntry.current ? weeklyEntry.current.buyPrice : 0 ];
+    var result = ['buyPrice' in weeklyPrices ? weeklyPrices.buyPrice : 0 ];
     days.map((day) => {
       day = day.toLowerCase();
-      if(!(day in weeklyEntry.current)) {
+      if(!(day in weeklyPrices)) {
         return result;
       }
-      result = result.concat(weeklyEntry.current[day].AM);
-      result = result.concat(weeklyEntry.current[day].PM);
+      result = result.concat(weeklyPrices[day].AM);
+      result = result.concat(weeklyPrices[day].PM);
       return result;
     })
     weeklyEntryArray.current = result;
   }
 
   const changeBuyPrice = (result) => {
-    weeklyEntry.current.buyPrice = result;
+    weeklyPrices['buyPrice'] = result;
+    setWeeklyPrices(weeklyPrices);
     getArray();
-    onChange(weeklyEntry.current, weeklyEntryArray.current);
+    onChange(weeklyPrices, weeklyEntryArray.current);
   }
   
   return (
@@ -68,6 +53,7 @@ const WeeklyEntry = ({prices, onChange}) => {
       </h3>
       <SingleEntry
         label={'Buy Price'}
+        initValue={weeklyPrices.buyPrice}
         onChange={(result) => changeBuyPrice(result)}
       />
       <Row>
@@ -76,6 +62,7 @@ const WeeklyEntry = ({prices, onChange}) => {
             <Col className={'entry'} key={day} sm={4} md={3} lg={2}>
               <DailyEntry
                 day={day}
+                initValue={weeklyPrices[day.toLowerCase()]}
                 onChange={(result) => handleChange(result, day)}
               />
             </Col>

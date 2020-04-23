@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Col } from 'react-bootstrap'
 
 import "../../App.scss";
 
-const SingleEntry = ({label, onChange}) => {
+const SingleEntry = ({label, initValue, onChange}) => {
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    if(initValue) {
+      setValue(initValue);
+    }
+  }, [initValue])
 
   const handleChange = (e) => {
     const re = /^[0-9\b]+$/;

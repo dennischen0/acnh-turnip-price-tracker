@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-import { createConnection, getRepository, getConnection } from "typeorm";
 import {Entry} from "../entity/Entry";
 const checkJwt = require('../utils/auth0_middleware')
 
 /* GET users listing. */
 router.post('/', checkJwt, async function(req, res, next) {
-  let entry = await Entry.findOne({ userID: req.user.sub });
+  let user = req.user.sub
+  let entry = await Entry.findOne({ userID: user });
   if(!entry) {
     entry = new Entry();
   }
-  entry.userID = req.user.sub;
+  entry.userID = user;
   entry.buyPrice = getValue('buyPrice', req.body);
   entry.monAM = getValueFromDay('monday', 'AM', req.body);
   entry.monPM = getValueFromDay('monday', 'PM', req.body);
@@ -31,34 +31,36 @@ router.post('/', checkJwt, async function(req, res, next) {
 });
 
 router.get('/', checkJwt, async function(req, res, next) {
-  let entry = await Entry.findOne({ userID: req.user.sub });
+  let user = req.user.sub
+  let entry = await Entry.findOne({ userID: user });
   if(!entry) {
     res.status(404).json('Not Found');
+    return;
   }
 
   const data = {
     buyPrice: entry.buyPrice,
-    Monday: {
+    monday: {
       AM: entry.monAM,
       PM: entry.monPM
     },
-    Tuesday: {
+    tuesday: {
       AM: entry.tueAM,
       PM: entry.tuePM
     },
-    Wednesday: {
+    wednesday: {
       AM: entry.wedAM,
       PM: entry.wedPM
     },
-    Thursday: {
+    thursday: {
       AM: entry.thuAM,
       PM: entry.thuPM
     },
-    Friday: {
+    friday: {
       AM: entry.friAM,
       PM: entry.friPM
     },
-    Saturday: {
+    saturday: {
       AM: entry.satAM,
       PM: entry.satPM
     },
