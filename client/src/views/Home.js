@@ -54,11 +54,13 @@ const Home = () => {
           Accept: 'application/json'
         }
       });
+      console.log(response)
 
-      if(response.status === '200') {
+      if(response.status === 200) {
         const responseData = await response.json();
         setPrices(responseData);
       }
+
       updateFetchComplete(true);
     } catch (error) {
       console.error(error);
