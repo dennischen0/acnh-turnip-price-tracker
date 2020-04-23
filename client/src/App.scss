@@ -20,18 +20,27 @@ body {
 
 .daily-entry {
   background-color: #F8F8F0;
-  border-radius: 30px;
-  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
 }
 
 .weekly-entry {
   text-align: center;
   background-color: #57ba7c;
-  border-radius: 40px;
+  border-radius: 10px;
   margin: 20px auto;
+  padding: 10px;
   .title{
     margin-bottom: 20px;
   }
+  padding: 20px;
+}
+
+.chartjs-render-monitor {
+  background-color: #86c6b8;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .App-link {

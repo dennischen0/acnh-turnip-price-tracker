@@ -120,7 +120,23 @@ const chartOptions = {
   },
 };
 
-const ChartComponent = ({ filter }) => {
+const getArray = (weeklyPrices) => {
+  var result = ['buyPrice' in weeklyPrices ? weeklyPrices.buyPrice : 0 ];
+  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day) => {
+    day = day.toLowerCase();
+    if(!(day in weeklyPrices)) {
+      return result;
+    }
+    result = result.concat(weeklyPrices[day].AM);
+    result = result.concat(weeklyPrices[day].PM);
+    return result;
+  })
+  return result;
+}
+
+const ChartComponent = ({ prices }) => {
+  console.log("Update chart")
+  const filter = getArray(prices)
   const canvas = useRef();
   const chart = useRef();
   const { t } = useTranslation();
@@ -164,14 +180,9 @@ const ChartComponent = ({ filter }) => {
 
   return (
     <Box p={2} mt={2} borderRadius={16} bgcolor="bkgs.chart">
-
-<canvas ref={canvas} width={600} height={400} />
+      <canvas ref={canvas} width={600} height={400} />
     </Box>
   );
-};
-
-ChartComponent.propTypes = {
-  filter: arrayOf(number).isRequired,
 };
 
 export default ChartComponent;

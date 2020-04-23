@@ -30,9 +30,9 @@ const WeeklyEntry = ({initPrices, onChange}) => {
   
   return (
     <Container className={'weekly-entry'}>
-      <h3 className={'title'}>
+      <h2 className={'title'}>
         Turnip Prices
-      </h3>
+      </h2>
       <SingleEntry
         label={'Buy Price'}
         initValue={weeklyPrices.buyPrice}

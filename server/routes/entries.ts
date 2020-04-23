@@ -43,42 +43,14 @@ router.get('/:user_id', checkJwt, async function(req, res, next) {
     return;
   }
 
-  const data = {
-    buyPrice: entry.buyPrice,
-    monday: {
-      AM: entry.monAM,
-      PM: entry.monPM
-    },
-    tuesday: {
-      AM: entry.tueAM,
-      PM: entry.tuePM
-    },
-    wednesday: {
-      AM: entry.wedAM,
-      PM: entry.wedPM
-    },
-    thursday: {
-      AM: entry.thuAM,
-      PM: entry.thuPM
-    },
-    friday: {
-      AM: entry.friAM,
-      PM: entry.friPM
-    },
-    saturday: {
-      AM: entry.satAM,
-      PM: entry.satPM
-    },
-  };
-
-  console.log(data)
-  res.status(200).json(data);
+  res.status(200).json(entry.beautify());
 })
 
 router.get('/', checkJwt, async function(req, res, next) {
   const allEntries = await Entry.find();
-  res.status(200).json(allEntries);
-
+  const result = allEntries.map(entry => entry.beautify())
+  console.log(result)
+  res.status(200).json(result);
 });
 
 function getValueFromDay(day, time, data){
