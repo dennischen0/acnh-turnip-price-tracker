@@ -5,7 +5,8 @@ const checkJwt = require('../utils/auth0_middleware')
 
 /* GET users listing. */
 router.post('/', checkJwt, async function(req, res, next) {
-  let user = req.user.sub
+  let user = req.user.sub;
+
   let entry = await Entry.findOne({ userID: user });
   if(!entry) {
     entry = new Entry();
@@ -52,6 +53,23 @@ router.get('/', checkJwt, async function(req, res, next) {
   console.log(result)
   res.status(200).json(result);
 });
+
+router.delete('/:user_id', checkJwt, async function(req, res, next) {
+  console.log('routed correct');
+  let user = req.params.user_id;
+  if(req.user.gty !== 'client-credentials') {
+    res.status(403).json('Forbidden');
+    return;
+  }
+  let entry = await Entry.findOne({ userID: user });
+  if(!entry) {
+    res.status(404).json('Not Found');
+    return;
+  }
+
+  entry.remove();
+  res.status(200).json('deleted');
+})
 
 function getValueFromDay(day, time, data){
   let dayData = getValue(day, data);

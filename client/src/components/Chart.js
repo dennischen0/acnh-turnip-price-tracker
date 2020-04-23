@@ -135,8 +135,7 @@ const getArray = (weeklyPrices) => {
 }
 
 const ChartComponent = ({ prices }) => {
-  console.log("Update chart")
-  const filter = getArray(prices)
+  let filter = getArray(prices)
   const canvas = useRef();
   const chart = useRef();
   const { t } = useTranslation();

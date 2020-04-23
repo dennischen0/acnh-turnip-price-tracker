@@ -5,12 +5,9 @@ import { Container, Accordion, Card } from 'react-bootstrap';
 
 var constants = require('../utils/constants');
 
-
-
 const AllEntries = () => {
   const { getTokenSilently } = useAuth0();
   const [allEntries, setAllEntries] = useState([]);
-
 
   useEffect(() => {
     fetchFromDB();
@@ -29,19 +26,17 @@ const AllEntries = () => {
       });
 
       const responseData = await response.json();
+      console.log(responseData)
       setAllEntries(responseData);
-      // setPrices(responseData);
-      // setFilter(getArray(responseData));
-      // updateFetchComplete(true);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <Container className={'test'}>
+    <Container className={'accordion-body'}>
       <Accordion>
-        {allEntries.map((entry, index) => {
+        {allEntries.map((entry) => {
           return (
             <Card>
               <Accordion.Toggle as={Card.Header} eventKey={entry.userID}>
@@ -49,7 +44,7 @@ const AllEntries = () => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={entry.userID}>
                 <Card.Body>
-                  {/* <Chart prices={entry}/> */}
+                  <Chart prices={entry}/>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>

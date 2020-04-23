@@ -10,11 +10,18 @@ const Home = () => {
   const { user } = useAuth0();
   const { isAuthenticated, getTokenSilently } = useAuth0();
   const [prices, setPrices] = useState({});
+  const [priceUpdated, setPriceUpdated] = useState(false);
   const [fetchComplete, updateFetchComplete] = useState(false);
 
   useEffect(() => {
     fetchFromDB();
   }, [])
+
+  //what the fuck is this?
+  useEffect(() => {
+    setPriceUpdated(false)
+    setPrices(prices)
+  }, [priceUpdated])
 
   //need to fix problem with quickly entering data.
   const saveIntoDB = async (weeklyEntry) => {
@@ -48,8 +55,10 @@ const Home = () => {
         }
       });
 
-      const responseData = await response.json();
-      setPrices(responseData);
+      if(response.status === '200') {
+        const responseData = await response.json();
+        setPrices(responseData);
+      }
       updateFetchComplete(true);
     } catch (error) {
       console.error(error);
@@ -58,13 +67,14 @@ const Home = () => {
 
   const updatePrices = (weeklyEntry) => {
     console.log("update prices")
-    setPrices(weeklyEntry)
+    setPrices(weeklyEntry);
+    setPriceUpdated(true)
     saveIntoDB(weeklyEntry);
   }
 
   return (
     <Container>
-      {/* <AllEntries/> */}
+      <AllEntries/>
       <Chart 
         prices={prices}
       />
