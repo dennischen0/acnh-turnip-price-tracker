@@ -6,7 +6,6 @@ import merge from "lodash.merge";
 import { Box } from "@material-ui/core";
 import { useDebounce } from "react-use";
 import { useTranslation } from "react-i18next";
-
 import {
   possiblePatterns,
   patternReducer,
@@ -15,7 +14,6 @@ import {
 } from "../utils/patterns";
 
 Chart.defaults.global.defaultFontFamily = "FinkHeavy";
-
 
 const createGenerteData = (t) => (filter) => {
   let patterns = possiblePatterns(filter);
@@ -101,17 +99,15 @@ const chartOptions = {
     mode: "index",
   },
   scales: {
-    yAxes: [
-      {
-        gridLines: {
-          display: false,
-        },
-        ticks: {
-          suggestedMin: 0,
-          suggestedMax: 300,
-        },
+    y: {
+      gridLines: {
+        display: false,
       },
-    ],
+      ticks: {
+        suggestedMin: 0,
+        suggestedMax: 300,
+      },
+    },
   },
   elements: {
     line: {
@@ -135,7 +131,7 @@ const getArray = (weeklyPrices) => {
 }
 
 const ChartComponent = ({ prices }) => {
-  let filter = getArray(prices)
+  let filters = getArray(prices)
   const canvas = useRef();
   const chart = useRef();
   const { t } = useTranslation();
@@ -148,11 +144,12 @@ const ChartComponent = ({ prices }) => {
     chart.current = new Chart(ctx, {
       type: "line",
       data: {
-        datasets: generateData(filter),
+        datasets: generateData(filters),
         labels: getLabels(),
       },
       options: chartOptions,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Language labels chart effect
@@ -169,19 +166,58 @@ const ChartComponent = ({ prices }) => {
     () => {
       if (!chart.current) return;
       // regerates chart in the new
-      const newData = generateData(filter, t);
+      const newData = generateData(filters, t);
       merge(chart.current.data.datasets, newData);
       chart.current.update();
     },
     500,
-    [filter, generateData]
+    [filters, generateData]
   );
 
+  // Fix for mobile tooltip
+  const tooltipTimeout = useRef();
+  const onTouchEnd = useCallback(() => {
+    clearTimeout(tooltipTimeout.current);
+    tooltipTimeout.current = setTimeout(() => {
+      if (!chart.current) return;
+      chart.current.options.tooltips.enabled = false;
+      chart.current.update();
+    }, 3000);
+  }, []);
+  const onTouchStart = useCallback(() => {
+    if (!chart.current) return;
+    chart.current.options.tooltips.enabled = true;
+    chart.current.update();
+  }, []);
+  // Clear timeout if unmount
+  useEffect(() => {
+    return () => {
+      clearTimeout(tooltipTimeout.current);
+    };
+  }, []);
+
   return (
-    <Box p={2} mt={2} borderRadius={16} bgcolor="bkgs.chart">
-      <canvas ref={canvas} width={600} height={400} />
+    <Box
+      p={[0.5, 1, 2]}
+      mt={2}
+      borderRadius={16}
+      bgcolor="bkgs.chart"
+      width={1}
+      height={400}
+    >
+      <canvas
+        style={{ userSelect: "none", WebkitUserSelect: "none" }}
+        unselectable={"on"}
+        ref={canvas}
+        onTouchEnd={onTouchEnd}
+        onTouchStart={onTouchStart}
+      />
     </Box>
   );
+};
+
+ChartComponent.propTypes = {
+  filters: arrayOf(number).isRequired,
 };
 
 export default ChartComponent;

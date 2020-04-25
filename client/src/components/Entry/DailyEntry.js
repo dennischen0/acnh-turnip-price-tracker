@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Row, Col, Container } from 'react-bootstrap'
 import SingleEntry from "./SingleEntry";
@@ -30,7 +30,7 @@ const DailyEntry = ({day, initValue, onChange}) => {
             <Col key={timeOfDay}>
               <SingleEntry
                 label={timeOfDay}
-                initValue={dailyEntry[timeOfDay] == 0 ? '' : dailyEntry[timeOfDay]}
+                initValue={dailyEntry[timeOfDay] === 0 ? '' : dailyEntry[timeOfDay]}
                 onChange={(result) => handleChange(result, timeOfDay)}
               />
             </Col>

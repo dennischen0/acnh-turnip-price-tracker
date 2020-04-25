@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Container, Row, Col } from 'react-bootstrap'
 import DailyEntry from "./DailyEntry";

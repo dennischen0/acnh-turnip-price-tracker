@@ -1,6 +1,5 @@
 import {User} from "../entity/User";
 var express = require('express');
-const axios = require("axios");
 var router = express.Router();
 const checkJwt = require('../utils/auth0_middleware');
 var AuthenticationClient = require('auth0').AuthenticationClient;
