@@ -4,9 +4,12 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 const cors = require("cors");
 const entriesRouter = require('./routes/entries');
+const usersRouter = require('./routes/users');
 const path = require('path');
 const app: express.Application = express();
 const bodyParser = require('body-parser');
+const bearerToken = require('express-bearer-token');
+ 
 require('dotenv').config();
 
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 8080;
@@ -28,7 +31,9 @@ app.use(function(req, res, next) {
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(bodyParser.json());
+app.use(bearerToken());
 app.use('/api/entries', entriesRouter);
+app.use('/api/users', usersRouter);
 
 // Leave this at the end of the file
 app.get('*', function (req, res) {

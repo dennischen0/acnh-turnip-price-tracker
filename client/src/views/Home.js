@@ -7,8 +7,7 @@ import { useAuth0 } from "../react-auth0-spa";
 var constants = require('../utils/constants');
 
 const Home = () => {
-  const { user } = useAuth0();
-  const { isAuthenticated, getTokenSilently } = useAuth0();
+  const { isAuthenticated, getTokenSilently, user } = useAuth0();
   const [prices, setPrices] = useState({});
   const [priceUpdated, setPriceUpdated] = useState(false);
   const [fetchComplete, updateFetchComplete] = useState(false);

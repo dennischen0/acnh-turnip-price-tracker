@@ -1,17 +1,19 @@
 var express = require('express');
 var router = express.Router();
-import {Entry} from "../entity/Entry";
+import { Entry } from "../entity/Entry";
+import { User } from "../entity/User";
+import { Not } from "typeorm";
 const checkJwt = require('../utils/auth0_middleware')
 
-/* GET users listing. */
+/* POST entry listing. */
 router.post('/', checkJwt, async function(req, res, next) {
-  let user = req.user.sub;
-
-  let entry = await Entry.findOne({ userID: user });
+  let userID = req.user.sub;
+  let user = await User.findOne({userID: userID});
+  let entry = await Entry.findOne({ user: user });
   if(!entry) {
     entry = new Entry();
   }
-  entry.userID = user;
+  entry.user = user;
   entry.buyPrice = getValue('buyPrice', req.body);
   entry.monAM = getValueFromDay('monday', 'AM', req.body);
   entry.monPM = getValueFromDay('monday', 'PM', req.body);
@@ -31,37 +33,39 @@ router.post('/', checkJwt, async function(req, res, next) {
   res.status(200).json('success');
 });
 
+/* GET entry. */
 router.get('/:user_id', checkJwt, async function(req, res, next) {
-  console.log('routed correct');
-  let user = req.params.user_id
   if(req.params.user_id !== req.user.sub && req.user.gty !== 'client-credentials') {
     res.status(403).json('Forbidden');
     return;
   }
-  let entry = await Entry.findOne({ userID: user });
-  if(!entry) {
+  let userID = req.params.user_id
+  let user = await User.findOne({userID: userID}, { relations: ["entries"] });
+  if(!user.entries[0]) {
     res.status(404).json('Not Found');
     return;
   }
-
-  res.status(200).json(entry.beautify());
+  let result = beautify(user);
+  res.status(200).json(result);
 })
 
+/* GET all entries. */
 router.get('/', checkJwt, async function(req, res, next) {
-  const allEntries = await Entry.find();
-  const result = allEntries.map(entry => entry.beautify())
+  let users = await User.find({ relations: ["entries"] });
+  const result = users.map(user => beautify(user))
   console.log(result)
   res.status(200).json(result);
 });
 
+/* DELETE entries. */
 router.delete('/:user_id', checkJwt, async function(req, res, next) {
-  console.log('routed correct');
-  let user = req.params.user_id;
+  let userID = req.params.user_id;
   if(req.user.gty !== 'client-credentials') {
     res.status(403).json('Forbidden');
     return;
   }
-  let entry = await Entry.findOne({ userID: user });
+  let user = await User.findOne({userID: userID});
+  let entry = await Entry.findOne({ user: user });
   if(!entry) {
     res.status(404).json('Not Found');
     return;
@@ -71,6 +75,8 @@ router.delete('/:user_id', checkJwt, async function(req, res, next) {
   res.status(200).json('deleted');
 })
 
+
+
 function getValueFromDay(day, time, data){
   let dayData = getValue(day, data);
   return dayData == 0 ? dayData : getValue(time, dayData);
@@ -78,6 +84,39 @@ function getValueFromDay(day, time, data){
 
 function getValue(key, data) {
   return data.hasOwnProperty(key) ? data[key] : 0;
+}
+
+function beautify(user) {
+  let entry = user.entries[0];
+  const data = {
+    userName: user.name,
+    buyPrice: entry.buyPrice,
+    monday: {
+      AM: entry.monAM,
+      PM: entry.monPM
+    },
+    tuesday: {
+      AM: entry.tueAM,
+      PM: entry.tuePM
+    },
+    wednesday: {
+      AM: entry.wedAM,
+      PM: entry.wedPM
+    },
+    thursday: {
+      AM: entry.thuAM,
+      PM: entry.thuPM
+    },
+    friday: {
+      AM: entry.friAM,
+      PM: entry.friPM
+    },
+    saturday: {
+      AM: entry.satAM,
+      PM: entry.satPM
+    },
+  };
+  return data;
 }
 
 module.exports = router;

@@ -39,10 +39,10 @@ const AllEntries = () => {
         {allEntries.map((entry) => {
           return (
             <Card>
-              <Accordion.Toggle as={Card.Header} eventKey={entry.userID}>
-                {entry.userID}
+              <Accordion.Toggle as={Card.Header} eventKey={entry.userName}>
+                {entry.userName}
               </Accordion.Toggle>
-              <Accordion.Collapse eventKey={entry.userID}>
+              <Accordion.Collapse eventKey={entry.userName}>
                 <Card.Body>
                   <Chart prices={entry}/>
                 </Card.Body>
