@@ -15,12 +15,12 @@ const AllEntries = () => {
   
   const fetchFromDB = async () => {
     try {
-      const token = await getTokenSilently();
+      // const token = await getTokenSilently();
 
       const response = await fetch(`${constants.API_SERVER}/api/entries`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
           Accept: 'application/json'
         }
       });
