@@ -50,7 +50,7 @@ router.get('/:user_id', checkJwt, async function(req, res, next) {
 })
 
 /* GET all entries. */
-router.get('/', checkJwt, async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   let users = await User.find({ relations: ["entries"] });
   const result = users.map(user => beautify(user))
   console.log(result)
@@ -74,8 +74,6 @@ router.delete('/:user_id', checkJwt, async function(req, res, next) {
   entry.remove();
   res.status(200).json('deleted');
 })
-
-
 
 function getValueFromDay(day, time, data){
   let dayData = getValue(day, data);
