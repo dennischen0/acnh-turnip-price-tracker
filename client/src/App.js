@@ -7,7 +7,6 @@ import { Router, Route, Switch } from "react-router-dom";
 // pages
 import Home from "./views/Home";
 import Profile from "./views/Profile";
-import ExternalApi from "./views/ExternalApi";
 
 // auth
 import history from "./utils/history";
@@ -74,7 +73,6 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
-          <Route path="/external-api" component={ExternalApi} />
         </Switch>
       </Router>
     </div>

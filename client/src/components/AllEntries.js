@@ -6,7 +6,7 @@ import { Container, Accordion, Card } from 'react-bootstrap';
 var constants = require('../utils/constants');
 
 const AllEntries = () => {
-  const { getTokenSilently } = useAuth0();
+  const { getTokenSilently, user } = useAuth0();
   const [allEntries, setAllEntries] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,6 @@ const AllEntries = () => {
       });
 
       const responseData = await response.json();
-      console.log(responseData)
       setAllEntries(responseData);
     } catch (error) {
       console.error(error);
@@ -37,18 +36,21 @@ const AllEntries = () => {
     <Container className={'accordion-body'}>
       <Accordion>
         {allEntries.map((entry) => {
-          return (
-            <Card>
-              <Accordion.Toggle as={Card.Header} eventKey={entry.userName}>
-                {entry.userName}
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey={entry.userName}>
-                <Card.Body>
-                  <Chart prices={entry}/>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          )
+          if(entry.userName !== user.name){
+            return (
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey={entry.userName}>
+                  {entry.userName}
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={entry.userName}>
+                  <Card.Body>
+                    <Chart prices={entry}/>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            )
+          }
+
         })}
       </Accordion>
     </Container>

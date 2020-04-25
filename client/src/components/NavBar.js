@@ -29,7 +29,6 @@ const NavBar = () => {
           {isAuthenticated && (
             <>
               <Nav.Link href="/profile">Profile</Nav.Link>
-              <Nav.Link href="/external-api">External API</Nav.Link>
               <Button variant="outline-success" onClick={() => logoutWithRedirect()}>Log out</Button>
 
             </>

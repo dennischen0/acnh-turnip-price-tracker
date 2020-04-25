@@ -53,7 +53,6 @@ const Home = () => {
           Accept: 'application/json'
         }
       });
-      console.log(response)
 
       if(response.status === 200) {
         const responseData = await response.json();
@@ -67,7 +66,6 @@ const Home = () => {
   };
 
   const updatePrices = (weeklyEntry) => {
-    console.log("update prices")
     setPrices(weeklyEntry);
     setPriceUpdated(true)
     saveIntoDB(weeklyEntry);
