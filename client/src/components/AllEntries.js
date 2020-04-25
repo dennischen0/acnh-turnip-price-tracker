@@ -36,7 +36,7 @@ const AllEntries = () => {
     <Container className={'accordion-body'}>
       <Accordion>
         {allEntries.map((entry) => {
-          if(entry.userName !== user.name){
+          if(!user || entry.userName !== user.name){
             return (
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey={entry.userName}>
