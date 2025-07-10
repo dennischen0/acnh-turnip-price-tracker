@@ -23,7 +23,7 @@ export const Auth0Provider = ({
       const auth0FromHook = await createAuth0Client(initOptions);
       setAuth0(auth0FromHook);
       console.log("IDTOKEN");
-      console.log(auth0FromHook.getSession()?.user?.idToken);
+      // console.log(auth0FromHook.getSession()?.user?.idToken);
 
       if (window.location.search.includes("code=") &&
           window.location.search.includes("state=")) {
@@ -37,6 +37,7 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+        console.log(await auth0FromHook.getUser().idToken);
         setUser(user);
       }
 
