@@ -22,6 +22,8 @@ export const Auth0Provider = ({
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(initOptions);
       setAuth0(auth0FromHook);
+      console.log("IDTOKEN");
+      // console.log(auth0FromHook.getSession()?.user?.idToken);
 
       if (window.location.search.includes("code=") &&
           window.location.search.includes("state=")) {
@@ -35,6 +37,8 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+          const idTokenClaims = await auth0FromHook.getIdTokenClaims();
+        console.log("Raw JWT (id_token):", idTokenClaims?.__raw);
         setUser(user);
       }
 
