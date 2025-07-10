@@ -37,7 +37,7 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
-        console.log(await auth0FromHook.getUser().idToken);
+        console.log("Raw JWT (id_token):", idTokenClaims?.__raw);
         setUser(user);
       }
 
