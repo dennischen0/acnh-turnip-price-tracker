@@ -65,7 +65,6 @@ export const Auth0Provider = ({
     setLoading(true);
     await auth0Client.handleRedirectCallback();
     const user = await auth0Client.getUser();
-    auth0Client.getSession
     setLoading(false);
     setIsAuthenticated(true);
     setUser(user);
